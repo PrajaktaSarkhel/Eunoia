@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eunoia - Your Wellness Companion</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.29.0/feather.min.css">
+</head>
+<body>
+    <div class="app">
+        <!-- Navigation Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="logo">Eunoia</h1>
+                <p class="tagline">Your wellness companion</p>
+            </div>
+        </header>
+
+        <!-- Home Page -->
+        <main class="main-content">
+            <section id="home" class="page active">
+                <div class="welcome-section">
+                    <h2>Welcome to your wellness space</h2>
+                    <p>Take a moment to breathe and choose what feels right for you today</p>
+                </div>
+                
+                <div class="feature-grid">
+                    <button class="feature-card" onclick="navigateTo('journal')">
+                        <div class="feature-icon">
+                            <i data-feather="edit-3"></i>
+                        </div>
+                        <h3>Daily Journal</h3>
+                        <p>Reflect with guided prompts</p>
+                    </button>
+                    
+                    <button class="feature-card" onclick="navigateTo('music')">
+                        <div class="feature-icon">
+                            <i data-feather="music"></i>
+                        </div>
+                        <h3>Mood Music</h3>
+                        <p>Find sounds for your mood</p>
+                    </button>
+                    
+                    <button class="feature-card" onclick="navigateTo('activities')">
+                        <div class="feature-icon">
+                            <i data-feather="heart"></i>
+                        </div>
+                        <h3>Activity Suggestions</h3>
+                        <p>Mindful offline activities</p>
+                    </button>
+                    
+                    <button class="feature-card" onclick="navigateTo('detox')">
+                        <div class="feature-icon">
+                            <i data-feather="clock"></i>
+                        </div>
+                        <h3>Digital Detox</h3>
+                        <p>Time away from screens</p>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Journal Page -->
+            <section id="journal" class="page">
+                <div class="page-header">
+                    <button class="back-btn" onclick="navigateTo('home')">
+                        <i data-feather="arrow-left"></i>
+                    </button>
+                    <h2>Daily Journal</h2>
+                </div>
+                
+                <div class="journal-content">
+                    <div class="prompt-section">
+                        <div id="journal-prompt" class="prompt-card">
+                            <h3>Today's Prompt</h3>
+                            <p id="prompt-text">Click "New Prompt" to get started</p>
+                        </div>
+                        <button id="new-prompt-btn" class="btn-primary">New Prompt</button>
+                    </div>
+                    
+                    <div class="writing-section">
+                        <textarea 
+                            id="journal-entry" 
+                            placeholder="Start writing your thoughts here..."
+                            rows="8"
+                        ></textarea>
+                        <div class="journal-actions">
+                            <button id="save-entry-btn" class="btn-primary">Save Entry</button>
+                            <button id="view-entries-btn" class="btn-secondary">View Past Entries</button>
+                        </div>
+                    </div>
+                    
+                    <div id="entries-list" class="entries-section hidden">
+                        <h3>Your Journal Entries</h3>
+                        <div id="entries-container"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Music Page -->
+            <section id="music" class="page">
+                <div class="page-header">
+                    <button class="back-btn" onclick="navigateTo('home')">
+                        <i data-feather="arrow-left"></i>
+                    </button>
+                    <h2>Mood-Based Music</h2>
+                </div>
+                
+                <div class="music-content">
+                    <div class="mood-selection">
+                        <h3>How are you feeling today?</h3>
+                        <div class="mood-grid">
+                            <button class="mood-card" data-mood="happy">
+                                <div class="mood-icon">😊</div>
+                                <span>Happy</span>
+                            </button>
+                            <button class="mood-card" data-mood="sad">
+                                <div class="mood-icon">😔</div>
+                                <span>Sad</span>
+                            </button>
+                            <button class="mood-card" data-mood="anxious">
+                                <div class="mood-icon">😰</div>
+                                <span>Anxious</span>
+                            </button>
+                            <button class="mood-card" data-mood="tired">
+                                <div class="mood-icon">😴</div>
+                                <span>Tired</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div id="music-player" class="music-player hidden">
+                        <div class="player-info">
+                            <h4 id="current-mood">Playing for your mood</h4>
+                            <p id="track-description">Calming sounds to match your feelings</p>
+                        </div>
+                        <audio id="audio-player" controls>
+                            <source id="audio-source" src="" type="audio/mpeg">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Activities Page -->
+            <section id="activities" class="page">
+                <div class="page-header">
+                    <button class="back-btn" onclick="navigateTo('home')">
+                        <i data-feather="arrow-left"></i>
+                    </button>
+                    <h2>Offline Activities</h2>
+                </div>
+                
+                <div class="activities-content">
+                    <div class="activity-suggestion">
+                        <div id="activity-card" class="suggestion-card">
+                            <div class="activity-icon">
+                                <i data-feather="smile"></i>
+                            </div>
+                            <h3>Ready for a mindful break?</h3>
+                            <p id="activity-text">Click below to get a personalized activity suggestion</p>
+                        </div>
+                        <button id="new-activity-btn" class="btn-primary">Suggest Activity</button>
+                    </div>
+                    
+                    <div class="activity-timer hidden" id="activity-timer">
+                        <h4>Activity Timer</h4>
+                        <div class="timer-display">
+                            <span id="timer-minutes">05</span>:<span id="timer-seconds">00</span>
+                        </div>
+                        <div class="timer-controls">
+                            <button id="start-timer-btn" class="btn-secondary">Start Timer</button>
+                            <button id="pause-timer-btn" class="btn-secondary hidden">Pause</button>
+                            <button id="reset-timer-btn" class="btn-secondary">Reset</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Digital Detox Page -->
+            <section id="detox" class="page">
+                <div class="page-header">
+                    <button class="back-btn" onclick="navigateTo('home')">
+                        <i data-feather="arrow-left"></i>
+                    </button>
+                    <h2>Digital Detox Timer</h2>
+                </div>
+                
+                <div class="detox-content">
+                    <div class="timer-setup" id="timer-setup">
+                        <h3>How long would you like to disconnect?</h3>
+                        <div class="timer-options">
+                            <button class="time-option" data-minutes="5">5 minutes</button>
+                            <button class="time-option" data-minutes="15">15 minutes</button>
+                            <button class="time-option" data-minutes="30">30 minutes</button>
+                            <button class="time-option" data-minutes="60">1 hour</button>
+                        </div>
+                        <div class="custom-timer">
+                            <input type="number" id="custom-minutes" placeholder="Custom minutes" min="1" max="180">
+                            <button id="custom-timer-btn" class="btn-secondary">Set Custom</button>
+                        </div>
+                    </div>
+                    
+                    <div class="detox-timer hidden" id="detox-timer">
+                        <div class="timer-circle">
+                            <div class="timer-inner">
+                                <div class="timer-time">
+                                    <span id="detox-minutes">15</span>:<span id="detox-seconds">00</span>
+                                </div>
+                                <div class="timer-label">remaining</div>
+                            </div>
+                        </div>
+                        
+                        <div class="detox-message">
+                            <h3>Enjoy your time away!</h3>
+                            <p>Take deep breaths, stretch, or simply be present in the moment.</p>
+                        </div>
+                        
+                        <div class="detox-controls">
+                            <button id="start-detox-btn" class="btn-primary">Start Detox</button>
+                            <button id="pause-detox-btn" class="btn-secondary hidden">Pause</button>
+                            <button id="stop-detox-btn" class="btn-secondary">End Early</button>
+                        </div>
+                    </div>
+                    
+                    <div class="detox-complete hidden" id="detox-complete">
+                        <div class="completion-icon">🌟</div>
+                        <h3>Detox Complete!</h3>
+                        <p>Welcome back! How do you feel after your digital break?</p>
+                        <button id="new-detox-btn" class="btn-primary">Start Another</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="script.js"></script>
+</body>
+</html>
