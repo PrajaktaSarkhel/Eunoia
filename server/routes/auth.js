@@ -1,7 +1,8 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 const User = require('../models/User');
-const { protect } = require('../middleware/auth'); 
+const { protect } = require('../middleware/auth');
 
 const router = express.Router();
 
@@ -10,6 +11,7 @@ router.post('/register', async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
+    // Check if user exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ 
@@ -17,8 +19,18 @@ router.post('/register', async (req, res) => {
       });
     }
 
-    const user = await User.create({ name, email, password });
+    // Hash password manually
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
 
+    // Create user with hashed password
+    const user = await User.create({ 
+      name, 
+      email, 
+      password: hashedPassword 
+    });
+
+    // Generate token
     const token = jwt.sign(
       { id: user._id },
       process.env.JWT_SECRET,

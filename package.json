@@ -1,20 +1,25 @@
 {
-  "name": "eunoia-app",
+  "name": "eunoia",
   "version": "1.0.0",
   "description": "🌿 Eunoia – A Minimal, Calming Wellness Web App",
-  "main": "script.js",
+  "main": "server/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "cd server && npm run dev",
+    "start": "cd server && npm start",
+    "install-server": "cd server && npm install"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PrajaktaSarkhel/Eunoia.git"
+    "url": "https://github.com/PrajaktaSarkhel/Eunoia"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/PrajaktaSarkhel/Eunoia/issues"
-  },
-  "homepage": "https://github.com/PrajaktaSarkhel/Eunoia#readme"
+  "keywords": [
+    "wellness",
+    "mental-health",
+    "journal",
+    "meditation",
+    "mindfulness"
+  ],
+  "author": "Prajakta Sarkhel",
+  "license": "MIT",
+  "homepage": "https://eunoia-companion.vercel.app"
 }

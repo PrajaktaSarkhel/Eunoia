@@ -20,13 +20,13 @@ mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('✅ MongoDB connected successfully'))
   .catch(err => console.error('❌ MongoDB connection error:', err));
 
-// Routes - COMMENT OUT ONE BY ONE TO FIND THE PROBLEM
-// app.use('/api/auth', require('./routes/auth'));
-// app.use('/api/journal', require('./routes/journal'));
-// app.use('/api/activities', require('./routes/activities'));
-// app.use('/api/moods', require('./routes/moods'));
+// Routes
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/journal', require('./routes/journal'));
+app.use('/api/activities', require('./routes/activities'));
+app.use('/api/moods', require('./routes/moods'));
 
-// Health check
+// Health check endpoint
 app.get('/api/health', (req, res) => {
   res.json({ 
     status: 'ok', 
@@ -35,20 +35,20 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Error handling
+// 404 handler - MUST come before error handler
+app.use((req, res, next) => {
+  res.status(404).json({ error: 'Route not found' });
+});
+
+// Error handling middleware - MUST have 4 parameters
 app.use((err, req, res, next) => {
-  console.error(err.stack);
+  console.error('Error:', err.stack);
   res.status(err.status || 500).json({
     error: {
       message: err.message || 'Internal Server Error',
       status: err.status || 500
     }
   });
-});
-
-// 404 handler
-app.use((req, res) => {
-  res.status(404).json({ error: 'Route not found' });
 });
 
 const PORT = process.env.PORT || 5000;
